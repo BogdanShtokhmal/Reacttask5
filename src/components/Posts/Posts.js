@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Link, Route, Switch,withRouter} from "react-router-dom";
 import Comments from "../comments/Comments";
+import Post from "../Post/Post";
+import Fulluser from "../fulluser/Fulluser";
 
 
 class Posts extends Component {
@@ -24,28 +26,32 @@ componentDidMount() {
 
 
                 const {posts}=this.state;
-        console.log(posts);
+
         const {match:{url}}=this.props;
         console.log(this.props);
+
         return (
             <div>
                 {
-                    posts.map(value => <div>{value.userId}-{value.id}-{value.title} ------<Link to={url+'/comments'}> Comments</Link></div>)
+                    posts.map(value =><Post item={value} />)
                 }
                 <hr/>
                 <Switch>
-                    <Route path={url+'/comments'} render={(props)=>{
-                        console.log(props);
+                    <Route path={url+'/:id'+'/comments'} render={(props)=>{
+                        const {match:{params:{id}}}=props
+                        console.log(props)
+                        return <Comments postId={id} key={id}/>}}/>
 
 
-                        return <Comments/>;
-                    }
+                    }} />
 
-                    }/>
 
                 </Switch>
 
                 <hr/>
+
+
+
             </div>
         );
     }

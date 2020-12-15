@@ -26,8 +26,12 @@ class Comments extends Component {
 }
 
     render() {
+        const {comments}=this.state;
+        console.log(comments)
         return (
+
             <div>
+                {comments.map(value => <div>{value.postId}-{value.id}-{value.name}</div>)}
 
             </div>
         );
